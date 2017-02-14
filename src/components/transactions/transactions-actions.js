@@ -6,7 +6,7 @@ import {
   SET_TRANSACTIONS,
   SET_FLOW_DETAILS,
 } from '../../actionTypes';
-import { API_URL } from '../../index';
+import { API_URL } from '../../constants';
 
 
 const maxRecords = 10000; // maximum number of records to be returned
