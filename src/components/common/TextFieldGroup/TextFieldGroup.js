@@ -1,6 +1,10 @@
 // Dependencies
 import React from 'react';
 import classnames from 'classnames';
+import { FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
+
+// Project imports
+import './TextFieldGroup.css';
 
 
 /**
@@ -14,18 +18,20 @@ import classnames from 'classnames';
  * @returns {JSX} - TextFieldGroup component
  * @constructor
  */
-const TextFieldGroup = ({ field, value, label, error, type, onChange}) => {
+const TextFieldGroup = ({ field, value, label, error, type, onChange, isLoading}) => {
   return (
-    <div className={classnames("form-group", { 'has-error': error})}>
-      <label className="control-label">{label}</label>
-      <input
+    <FormGroup className={classnames("form-group", { 'has-error': error})}>
+      <ControlLabel htmlFor={field}>{label}</ControlLabel>
+      <FormControl
+        id={field}
         type={type}
         name={field}
-        className="form-control"
         value={value}
-        onChange={onChange} />
+        onChange={onChange}
+        disabled={isLoading}
+      />
       {error && <span className="help-block">{error}</span>}
-    </div>
+    </FormGroup>
   );
 };
 

@@ -3,8 +3,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 // Project imports
-import { fetchTransactions } from '../transactions-actions';
-import DataTable from '../DataTable/DataTable';
+import { fetchTransactions } from '../../../components/transactions/transactions-actions';
+import DataTable from '../../../components/transactions/DataTable/DataTable';
 
 
 /** Represents class for TransactionsPage component */

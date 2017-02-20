@@ -1,12 +1,15 @@
 // Dependencies
-import React from 'react';
+import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
+import validator from 'validator';
+import { Panel } from 'react-bootstrap';
 
 // Project imports
 import { login } from '../auth-actions';
-import { addFlashMessage } from '../../flash/flash-actions';
-import TextFieldGroup from '../../common/TextFieldGroup';
+import { addFlashMessage, deleteFlashMessage } from '../../flash/flash-actions';
+import { TextFieldGroup, LoadingButton } from '../../index';
+import { LOGIN_ERROR } from '../../../constants';
 
 
 /**
@@ -18,8 +21,12 @@ import TextFieldGroup from '../../common/TextFieldGroup';
 function validateInput(data) {
   let errors = {};
 
-  if(data.identifier.trim() === '') {
-    errors.identifier = "This field is required";
+  if(data.email.trim() === '') {
+    errors.email = "This field is required";
+  } else {
+    if (!validator.isEmail(data.email)) {
+      errors.email = "Please enter a valid email";
+    }
   }
 
   if(data.password.trim() === '') {
@@ -33,7 +40,13 @@ function validateInput(data) {
 }
 
 /** Class representing the Login Form */
-class LoginForm extends React.Component {
+class LoginForm extends Component {
+  static propTypes = {
+    addFlashMessage: PropTypes.func.isRequired,
+    deleteFlashMessage: PropTypes.func.isRequired,
+    login: PropTypes.func.isRequired,
+  };
+
   /**
    * Creates login form - sets initial state and bind 'this' for common functions
    * @param {Object} props - Props passed to the LoginForm component
@@ -42,21 +55,21 @@ class LoginForm extends React.Component {
     super(props);
 
     this.state = {
-      identifier: '',
+      email: '',
       password: '',
       errors: {},
       isLoading: false,
-    }
+    };
 
-    this.onSubmit = this.onSubmit.bind(this);
-    this.onChange = this.onChange.bind(this);
+    this._onSubmit = this._onSubmit.bind(this);
+    this._onChange = this._onChange.bind(this);
   }
 
   /**
    * Sets error state if the form is not valid
    * @returns {Boolean} isValid - from the validateInput function
    */
-  isValid() {
+  _isValid() {
     const { errors, isValid } = validateInput(this.state); // check for errors
 
     if(!isValid) { // if the form is not valid
@@ -71,18 +84,20 @@ class LoginForm extends React.Component {
    * If successful redirects the user else shows a error flash message.
    * @param {Object} e - Event object of the submit
    */
-  onSubmit(e) {
+  _onSubmit(e) {
     e.preventDefault(); // stop the default submit
 
-    if(this.isValid()) { // if the form is valid
+    if(this._isValid()) { // if the form is valid
       this.setState({ errors: {}, isLoading: true}); // update loading state
       this.props.login(this.state).then(
         (res) => { // successful login
-          this.context.router.push('/transactions'); // redirect user
+          this.context.router.push('/'); // redirect user
         },
         (err) => { // login error
           this.setState({ isLoading: false }); // update loading state
+          this.props.deleteFlashMessage(LOGIN_ERROR);
           this.props.addFlashMessage({ // add flash error message
+            id: LOGIN_ERROR,
             type: 'error',
             text: 'Invalid Login credentials',
           });
@@ -96,7 +111,7 @@ class LoginForm extends React.Component {
    * sets state on itself with the new input value
    * @param {Object} e - Event object of the change event
    */
-  onChange(e) {
+  _onChange(e) {
     const ele = e.target;
     this.setState({ [ele.name]: ele.value});
   }
@@ -107,18 +122,25 @@ class LoginForm extends React.Component {
    */
   render() {
     const {
-      identifier,
+      email,
       password,
       errors,
       isLoading } = this.state; // get items off of state
 
+    const panelTitle = (<h1>Login</h1>);
+    const panelFooter = (
+      <div className="text-right">
+        <LoadingButton isLoading={isLoading} type="submit">Login</LoadingButton>
+      </div>
+    );
+
     // empty error messages
-    let identifierError = "";
+    let emailError = "";
     let passwordError = "";
 
     if(typeof errors !== "undefined") { // if there are errors
-      if (typeof errors.identifier !== "undefined") { // if there is an error on identifier
-        identifierError = errors.identifier; // assign error message
+      if (typeof errors.email !== "undefined") { // if there is an error on identifier
+        emailError = errors.email; // assign error message
       }
       if (typeof errors.password !== "undefined") { // if there is an error on password
         passwordError = errors.password; // assign error message
@@ -126,40 +148,45 @@ class LoginForm extends React.Component {
     }
 
     return (
-      <form onSubmit={this.onSubmit}>
-        <h1>Login</h1>
+      <form className="LoginForm" onSubmit={this._onSubmit}>
+        <Panel
+          header={panelTitle}
+          footer={panelFooter}>
 
-        <TextFieldGroup
-          field="identifier"
-          value={identifier}
-          label="Email address"
-          error={identifierError}
-          onChange={this.onChange} />
+          <TextFieldGroup
+            field="email"
+            value={email}
+            type={email}
+            label="Email address"
+            error={emailError}
+            isLoading={isLoading}
+            onChange={this._onChange} />
 
-        <TextFieldGroup
-          field="password"
-          value={password}
-          label="Password"
-          type="password"
-          error={passwordError}
-          onChange={this.onChange} />
+          <TextFieldGroup
+            field="password"
+            value={password}
+            label="Password"
+            type="password"
+            error={passwordError}
+            isLoading={isLoading}
+            onChange={this._onChange} />
 
-        <div className="form-group">
-          <button disabled={isLoading} className="btn btn-primary btn-lg">Login</button>
-        </div>
-
+        </Panel>
       </form>
     );
   }
 }
 
-// Define props supplied by context
 LoginForm.contextTypes = {
-  router: React.PropTypes.object.isRequired // react router from context (used to redirect successful login)
+  router: PropTypes.object.isRequired,
 };
 
 // use connect to pass state/action to component as props
 export default connect(
   null, // state
-  { login, addFlashMessage } // actions
+  {
+    login,
+    addFlashMessage,
+    deleteFlashMessage
+  } // actions
 )(LoginForm);

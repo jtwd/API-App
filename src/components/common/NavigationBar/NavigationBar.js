@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 
 // Project imports
-import { logout } from './auth/auth-actions';
+import { logout } from '../../auth/auth-actions';
 
 
 /** Represents class for the NavigationBar component */
@@ -29,8 +29,9 @@ class NavigationBar extends Component {
     // Links for logged in users
     const userLinks = (
       <ul className="nav navbar-nav navbar-right">
-        <li><Link to="/promotions">Promotions</Link></li>
+        <li><Link to="/promotions">Setup</Link></li>
         <li><Link to="/reports">Reports</Link></li>
+        <li><Link to="/transactions">Rewards</Link></li>
         <li><a href="#" onClick={this.logout.bind(this)}>Logout</a></li>
       </ul>);
 

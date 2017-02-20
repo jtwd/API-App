@@ -5,8 +5,8 @@ import { Link } from 'react-router';
 import dateformat from 'dateformat';
 
 // Project imports
-import { fetchFlowDetails } from '../transactions-actions';
-import EvidenceItem from '../EvidenceItem/EvidenceItem';
+import { fetchFlowDetails } from '../../../components/transactions/transactions-actions';
+import EvidenceItem from '../../../components/transactions/EvidenceItem/EvidenceItem';
 import './TransactionDetails.css';
 
 

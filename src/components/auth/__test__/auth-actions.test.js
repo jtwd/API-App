@@ -1,5 +1,5 @@
-import { setCurrentUser } from './auth-actions';
-import { SET_CURRENT_USER } from '../../actionTypes';
+import { setCurrentUser } from '../auth-actions';
+import { SET_CURRENT_USER } from '../../../actionTypes';
 
 
 describe('auth actions: setCurrentUser', () => {

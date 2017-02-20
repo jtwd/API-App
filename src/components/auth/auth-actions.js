@@ -30,7 +30,7 @@ export function setCurrentUser(user) {
  */
 export function login(data) {
   const newData = {
-    Username: data.identifier,
+    Username: data.email,
     Password: data.password,
   };
   return dispatch => {

@@ -3,14 +3,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 // Project imports
-import Greeting from './Greeting';
+import Greeting from '../common/Greeting/Greeting';
 
 
-/** Represents the HomePage component */
+/** Represents the Home component */
 class HomePage extends Component {
   /**
-   * Renders HomePage component
-   * @returns {JSX} -  HomePage component
+   * Renders Home component
+   * @returns {JSX} -  Home component
    */
   render() {
     const { isAuthenticated } = this.props.auth;

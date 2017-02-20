@@ -8,7 +8,7 @@ import { createStore, applyMiddleware, compose } from 'redux';
 
 // Project imports
 import { setCurrentUser } from './components/auth/auth-actions';
-import routes from './routes';
+import routes from './routes/routes';
 import rootReducer from './rootReducer';
 import setAuthorizationToken from './components/auth/utils/setAuthorizationToken';
 import './index.css';

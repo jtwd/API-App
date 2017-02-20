@@ -42,7 +42,7 @@ class FlashMessagesList extends Component {
  */
 function mapStateToProps(state) {
   return {
-    messages: state.flashMessages,
+    messages: state.flash,
   }
 }
 

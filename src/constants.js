@@ -1,7 +1,6 @@
 // environment API url's
-const LIVE_API_URL = 'http://someliveserver.com/admin';
+const LIVE_API_URL = 'https://jaywintropicana.jywng.co/admin';
 const DEV_API_URL = 'http://jaywin.local/admin/';
-
 
 let apiUrl;
 if (process.env.NODE_ENV === 'production') {
@@ -11,3 +10,6 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 export const API_URL = apiUrl;
+
+// Flash message Error Types
+export const LOGIN_ERROR = 'LOGIN_ERROR';

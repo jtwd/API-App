@@ -2,7 +2,8 @@
 import React from 'react';
 
 // Project imports
-import LoginForm from './LoginForm';
+import { LoginForm } from '../../../components';
+import './LoginPage.css';
 
 
 /** Class representing the Login Page */

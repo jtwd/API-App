@@ -18,10 +18,11 @@ import {
 export default (state = [], action = {}) => {
   switch(action.type) {
     case ADD_FLASH_MESSAGE:
+      let id = action.message.id ? action.message.id : shortid.generate();
       return [
         ...state,
         {
-          id: shortid.generate(),
+          id: id,
           type: action.message.type,
           text: action.message.text,
         }

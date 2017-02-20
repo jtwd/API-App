@@ -50,10 +50,10 @@ export default function(ComposedComponent) {
   }
 
   // Define components props
-  Authenticate.propTypes = {
+  /*Authenticate.propTypes = {
     isAuthenticated: React.PropTypes.bool.isRequired,
     addFlashMessage: React.PropTypes.func.isRequired,
-  };
+  };*/
 
   // Define props taken from context
   Authenticate.contextTypes = {
