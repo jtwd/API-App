@@ -9,8 +9,8 @@ describe('auth actions: setCurrentUser', () => {
     const expectedAction = {
       type: SET_CURRENT_USER,
       user
-    }
-    expect(setCurrentUser(user)).toEqual(expectedAction)
+    };
+    expect(setCurrentUser(user)).toEqual(expectedAction);
   });
 
 });

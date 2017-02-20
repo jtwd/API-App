@@ -4,6 +4,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
+import { Panel } from 'react-bootstrap';
 
 // Project imports
 import './Greeting.css';
@@ -73,14 +74,16 @@ class Greeting extends Component {
       hero,
     } = this.props
     const i = isAuthenticated ? 1 : 0;
-    const heroClass = hero ? 'jumbotron' : '';
+    const heroClass = hero ? 'jumbotron' : 'panel-body';
 
     return (
-      <div className={`Greeting ${heroClass}`}>
-        {this.renderTitle(title, i)}
-        {this.renderMessage(message, i)}
-        {this.renderButton(btnTo, btnText, i)}
-      </div>
+      <Panel className="Greeting">
+        <div className={heroClass}>
+          {this.renderTitle(title, i)}
+          {this.renderMessage(message, i)}
+          {this.renderButton(btnTo, btnText, i)}
+        </div>
+      </Panel>
     );
   }
 };
