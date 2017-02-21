@@ -1,3 +1,19 @@
+.Greeting {
+  text-align: center;
+}
+
 .Greeting .jumbotron {
   margin: 0;
+}
+
+.Greeting .jumbotron .Greeting-title {
+  font-size: 4em;
+}
+
+.Greeting .Greeting-title {
+  margin: 0 0 20px;
+}
+
+.Greeting .Greeting-btn {
+  margin-top: 15px;
 }

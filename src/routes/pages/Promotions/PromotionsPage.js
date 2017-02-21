@@ -2,13 +2,21 @@
 import React, { Component } from 'react';
 
 // Project imports
-import { PageHead } from '../../../components';
+import {
+  PageHead,
+  PromotionsTable,
+} from '../../../components';
 
 
 class PromotionsPage extends Component {
   render() {
     return (
-      <PageHead title="Promotion Setup" />
+      <div className="Page">
+        <PageHead title="Promotion Setup">
+          <button className="btn btn-primary AddNewButton"><strong>+</strong> &nbsp;Create New Promotion</button>
+        </PageHead>
+        <PromotionsTable />
+      </div>
     );
   }
 }

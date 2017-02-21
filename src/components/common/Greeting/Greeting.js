@@ -38,7 +38,7 @@ class Greeting extends Component {
    */
   renderTitle(title: array<string>, i: number) {
     if (!title) return '';
-    return (<h1>{title[i]}</h1>);
+    return (<h1 className="Greeting-title">{title[i]}</h1>);
   }
 
   /**
@@ -49,7 +49,7 @@ class Greeting extends Component {
    */
   renderMessage(msg: array<string>, i: number) {
     if (!msg) return '';
-    return (<p>{msg[i]}</p>);
+    return (<p className="Greeting-msg">{msg[i]}</p>);
   }
 
   /**
@@ -61,7 +61,7 @@ class Greeting extends Component {
    */
   renderButton(to: array<string>, text: array<string>, i: number) {
     if (!to || !text) return '';
-    return (<Link to={to[i]} className="btn btn-primary btn-lg">{text[i]}</Link>);
+    return (<Link to={to[i]} className="Greeting-btn btn btn-primary btn-lg">{text[i]}</Link>);
   }
 
   render() {

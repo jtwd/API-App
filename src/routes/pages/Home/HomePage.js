@@ -20,7 +20,7 @@ class HomePage extends Component {
         message={["You need to be logged in to use this app", "You are logged in and ready to go!"]}
         btnTo={["login", "promotions"]}
         btnText={["Login", "Promotion setup"]}
-        hero={false}
+        hero={true}
       />
     )
   }

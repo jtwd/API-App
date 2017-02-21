@@ -6,3 +6,5 @@ export { default as TextFieldGroup } from './common/TextFieldGroup/TextFieldGrou
 export { default as LoadingButton } from './common/LoadingButton/LoadingButton';
 export { default as LoginForm } from './auth/Login/LoginForm';
 export { default as PageHead } from './common/PageHead/PageHead';
+export { default as PromotionsTable } from './promotions/PromotionsTable/PromotionsTable';
+export { default as LoadingAni } from './common/LoadingAni/LoadingAni';

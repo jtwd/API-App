@@ -2,7 +2,7 @@
 import {
   SET_TRANSACTIONS,
   SET_FLOW_DETAILS,
-} from '../../actionTypes';
+} from '../../actions';
 
 
 // Define initial state

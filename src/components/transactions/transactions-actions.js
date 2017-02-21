@@ -5,7 +5,7 @@ import axios from 'axios';
 import {
   SET_TRANSACTIONS,
   SET_FLOW_DETAILS,
-} from '../../actionTypes';
+} from '../../actions';
 import { API_URL } from '../../constants';
 
 

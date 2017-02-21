@@ -2,7 +2,7 @@
 import isEmpty from 'lodash/isEmpty';
 
 // Project imports
-import { SET_CURRENT_USER } from '../../actionTypes';
+import { SET_CURRENT_USER } from '../../actions';
 
 
 // Define initial state (for auth)

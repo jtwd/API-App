@@ -4,7 +4,7 @@ import axios from 'axios';
 // Project imports
 import { API_URL } from '../../constants';
 import setAuthorizationToken from './utils/setAuthorizationToken';
-import { SET_CURRENT_USER } from '../../actionTypes';
+import { SET_CURRENT_USER } from '../../actions';
 
 
 /**

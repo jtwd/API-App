@@ -1,6 +1,8 @@
 // Project imports
-import { ADD_FLASH_MESSAGE } from '../../actionTypes';
-import { DELETE_FLASH_MESSAGE } from '../../actionTypes';
+import {
+  ADD_FLASH_MESSAGE,
+  DELETE_FLASH_MESSAGE,
+} from '../../actions';
 
 
 /**

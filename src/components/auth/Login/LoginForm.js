@@ -6,9 +6,13 @@ import validator from 'validator';
 import { Panel } from 'react-bootstrap';
 
 // Project imports
-import { login } from '../auth-actions';
-import { addFlashMessage, deleteFlashMessage } from '../../flash/flash-actions';
-import { TextFieldGroup, LoadingButton } from '../../index';
+import {
+  login,
+  addFlashMessage,
+  deleteFlashMessage,
+} from '../../../actions';
+
+import { TextFieldGroup, LoadingButton, LoadingAni } from '../../index';
 import { LOGIN_ERROR } from '../../../constants';
 
 
@@ -172,6 +176,7 @@ class LoginForm extends Component {
             onChange={this._onChange} />
 
         </Panel>
+        { isLoading ? <LoadingAni cover={true} /> : ''}
       </form>
     );
   }

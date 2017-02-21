@@ -4,6 +4,10 @@ body {
   font-family: sans-serif;
 }
 
+.Page {
+  padding: 0 15px;
+}
+
 .evidenceImg {
   max-width: 600px;
 }
