@@ -1,14 +1,22 @@
 // Dependencies
-import isEmpty from 'lodash/isEmpty';
+
 
 // Project imports
-import { SET_CURRENT_USER } from '../../actions';
+import {
+  REQ_LOGIN,
+  REQ_LOGIN_SUCCESS,
+  REQ_LOGIN_FAILURE,
+  LOGOUT,
+} from '../../actions';
 
 
 // Define initial state (for auth)
 const initialState = {
   isAuthenticated: false,
   user: {},
+  token: '',
+  isLoading: false,
+  error: null,
 };
 
 /**
@@ -20,13 +28,38 @@ const initialState = {
  */
 export default (state = initialState, action = {}) => {
   switch(action.type) {
-    case SET_CURRENT_USER:
+    case REQ_LOGIN:
       return {
-        isAuthenticated: !isEmpty(action.user),
-        user: action.user
+        ...state,
+        isLoading: true,
+      };
+
+    case REQ_LOGIN_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        token: action.payload.Item.Token,
+        isAuthenticated: true,
+        error: null
+      };
+
+    case REQ_LOGIN_FAILURE:
+
+      return {
+        ...state,
+        isLoading: false,
+        token: '',
+        error: action.payload.message,
+      };
+
+    case LOGOUT:
+      return {
+        ...state,
+        token: '',
+        isAuthenticated: false,
       };
 
     default:
-      return state
+      return state;
   }
 }

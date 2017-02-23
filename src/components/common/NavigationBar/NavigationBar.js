@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 
 // Project imports
-import { logout } from '../../auth/auth-actions';
+import { logout } from '../../../actions';
 
 
 /** Represents class for the NavigationBar component */

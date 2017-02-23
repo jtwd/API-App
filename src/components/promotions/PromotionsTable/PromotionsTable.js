@@ -3,19 +3,35 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import dateformat from 'dateformat';
-import { Table, unsafe } from 'reactable';
+import { Table } from 'reactable';
 import { Alert, Glyphicon, Button } from 'react-bootstrap';
 
 // Project imports
-import { fetchPromotions } from '../../../actions';
+import { DATA_LOAD_ERROR } from '../../../constants';
+import {
+  fetchPromotions,
+  addFlashMessage,
+  deleteFlashMessage,
+} from '../../../actions';
 import { LoadingAni } from '../../../components';
 import './PromotionsTable.css';
 
 const content = {
   emptyWarning: 'There are currently no active or draft promotions on the system',
+  dataLoadError: 'There was a problem loading promotion data. Please try again later.',
 };
 
 class PromotionsTable extends Component {
+  static propTypes = {
+    promotions: PropTypes.array.isRequired,
+    isLoading: PropTypes.bool.isRequired,
+    isLoaded: PropTypes.bool.isRequired,
+    error: PropTypes.object,
+    fetchPromotions: PropTypes.func.isRequired,
+    addFlashMessage: PropTypes.func.isRequired,
+    deleteFlashMessage: PropTypes.func.isRequired,
+  };
+
   constructor(props) {
     super(props);
 
@@ -43,6 +59,15 @@ class PromotionsTable extends Component {
 
     if (isLoading) return (<LoadingAni />);
 
+    if (error) {
+      this.props.deleteFlashMessage(DATA_LOAD_ERROR);
+      this.props.addFlashMessage({ // add flash error message
+        id: DATA_LOAD_ERROR,
+        type: 'error',
+        text: content.dataLoadError,
+      });
+    }
+
     if (isLoaded) {
       if (promotions.length === 0) {
         return (
@@ -57,10 +82,11 @@ class PromotionsTable extends Component {
             <Button title="Delete" className="btn btn-danger btn-sm"><Glyphicon glyph="remove-circle" /></Button>
           </div>
         );
+
         return {
           'Promotion': promo.Name,
           'Created': dateformat(promo.CreatedDate, "yyyy-mm-dd"),
-          '': (btns) // Link to Promotions details
+          '': btns
         }
       });
 
@@ -93,5 +119,9 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps, // State
-  { fetchPromotions } // Actions
+  {
+    fetchPromotions,
+    addFlashMessage,
+    deleteFlashMessage,
+  } // Actions
 )(PromotionsTable);

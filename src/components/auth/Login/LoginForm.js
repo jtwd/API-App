@@ -62,7 +62,6 @@ class LoginForm extends Component {
       email: '',
       password: '',
       errors: {},
-      isLoading: false,
     };
 
     this._onSubmit = this._onSubmit.bind(this);
@@ -93,18 +92,21 @@ class LoginForm extends Component {
 
     if(this._isValid()) { // if the form is valid
       this.setState({ errors: {}, isLoading: true}); // update loading state
+      this.props.deleteFlashMessage(LOGIN_ERROR);
       this.props.login(this.state).then(
-        (res) => { // successful login
-          this.context.router.push('/'); // redirect user
+        (res) => {
+          if (this.props.submitError) {
+            this.props.addFlashMessage({
+              id: LOGIN_ERROR,
+              type: 'error',
+              text: this.props.submitError,
+            });
+          } else {
+            this.context.router.push('/');
+          }
         },
-        (err) => { // login error
-          this.setState({ isLoading: false }); // update loading state
-          this.props.deleteFlashMessage(LOGIN_ERROR);
-          this.props.addFlashMessage({ // add flash error message
-            id: LOGIN_ERROR,
-            type: 'error',
-            text: 'Invalid Login credentials',
-          });
+        (err) => {
+          console.log('err', this);
         }
       );
     }
@@ -128,8 +130,9 @@ class LoginForm extends Component {
     const {
       email,
       password,
-      errors,
-      isLoading } = this.state; // get items off of state
+      errors } = this.state; // get items off of state
+
+    const { isLoading } = this.props;
 
     const panelTitle = (<h1>Login</h1>);
     const panelFooter = (
@@ -186,9 +189,17 @@ LoginForm.contextTypes = {
   router: PropTypes.object.isRequired,
 };
 
+function mapStateToProps(state) {
+  return {
+    isAuthenticated: state.auth.isAuthenticated,
+    isLoading: state.auth.isLoading,
+    submitError: state.auth.error,
+  }
+}
+
 // use connect to pass state/action to component as props
 export default connect(
-  null, // state
+  mapStateToProps, // state
   {
     login,
     addFlashMessage,

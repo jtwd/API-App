@@ -13,14 +13,12 @@ import {
 const ROOT_URL = `${API_URL}promotion`;
 
 function _reqPromos() {
-  console.log('_reqPromos');
   return {
     type: REQ_PROMOS,
   };
 }
 
 function _reqPromosSuccess(data) {
-  console.log('_reqPromosSuccess');
   return {
     type: REQ_PROMOS_SUCCESS,
     payload: data,
@@ -28,7 +26,6 @@ function _reqPromosSuccess(data) {
 }
 
 function _reqPromosFailure(errorMsg) {
-  console.log('_reqPromosFailure', errorMsg);
   return {
     type: REQ_PROMOS_FAILURE,
     payload: errorMsg,
@@ -49,20 +46,3 @@ export function fetchPromotions() {
       });
   };
 }
-
-/*
-export function login(data) {
-  const newData = {
-    Username: data.email,
-    Password: data.password,
-  };
-  return dispatch => {
-    return axios.post(`${API_URL}system/token`, newData).then(res => {
-      const token = res.data.Item.Token;
-      localStorage.setItem('jwtToken', token);
-      setAuthorizationToken(token);
-      dispatch(setCurrentUser(token));
-    })
-  }
-}
-  */

@@ -3,7 +3,10 @@
 // ********************
 
 // Auth
-export const SET_CURRENT_USER = 'SET_CURRENT_USER';
+export const REQ_LOGIN = 'REQ_LOGIN';
+export const REQ_LOGIN_SUCCESS = 'REQ_LOGIN_SUCCESS';
+export const REQ_LOGIN_FAILURE = 'REQ_LOGIN_FAILURE';
+export const LOGOUT = 'LOGOUT';
 
 /* Flash */
 export const ADD_FLASH_MESSAGE = 'ADD_FLASH_MESSAGE';
