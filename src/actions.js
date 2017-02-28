@@ -24,7 +24,6 @@ export const SET_FLOW_DETAILS = 'SET_FLOW_DETAILS';
 
 // Auth
 export {
-  setCurrentUser,
   login,
   logout,
 } from './components/auth/auth-actions';

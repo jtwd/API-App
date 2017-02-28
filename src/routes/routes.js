@@ -12,8 +12,8 @@ import {
   TransactionsPage,
   TransactionDetailsPage,
 } from './pages';
-
 import { requireAuth } from '../components'; // higher order component
+import { onPromotionsEnter } from './route_callbacks';
 
 
 /** Routes component */
@@ -21,7 +21,7 @@ export default (
   <Route path="/" component={App}>
     <IndexRoute component={HomePage} />
     <Route path="login" component={LoginPage} />
-    <Route path="promotions" component={requireAuth(PromotionsPage)} />
+    <Route path="promotions" component={requireAuth(PromotionsPage)} onEnter={onPromotionsEnter} />
     <Route path="reports" component={requireAuth(ReportsPage)} />
     <Route path="transactions" component={requireAuth(TransactionsPage)} />
     <Route path="transactions/:id" component={requireAuth(TransactionDetailsPage)} />

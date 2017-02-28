@@ -18,7 +18,7 @@ const ROOT_URL = `${API_URL}system/token`;
  * Action creator to send a login request
  * @returns {{type, user: *}} - Action
  */
-export function _reqLogin() {
+function _reqLogin() {
   return {
     type: REQ_LOGIN,
   }
@@ -29,7 +29,7 @@ export function _reqLogin() {
  * @param user {Object} - details of the logged in user and jwtToken
  * @returns {{type, user: *}} - Action
  */
-export function _reqLoginSuccess(data) {
+function _reqLoginSuccess(data) {
   const token = data.Item.Token;
 
   localStorage.setItem('jwtToken', token);
@@ -46,20 +46,32 @@ export function _reqLoginSuccess(data) {
  * @param error {Object} - details of the error that caused the failed request
  * @returns {{type, user: *}} - Action
  */
-export function _reqLoginFailure(error) {
+function _reqLoginFailure(error) {
   return {
     type: REQ_LOGIN_FAILURE,
     payload: error,
   }
 }
 
+/**
+ * Login action - posts login data to the API with a promise
+ * It dispatches REQ_LOGIN to indicate the start of the request
+ * Promise returns with a token (if login is successful).
+ * - Dispatches REQ_LOGIN_SUCCESS with payload of token
+ * Promise returns with an error (if login was not successful)
+ * - Dispatches REQ_LOGIN_FAILURE with payload of error
+ * @param data
+ * @returns {function(*)}
+ */
 export function login(data) {
   const newData = {
     Username: data.email,
     Password: data.password,
   };
+
   return dispatch => {
     dispatch(_reqLogin());
+
     return axios.post(ROOT_URL, newData)
       .then(res => {
         dispatch(_reqLoginSuccess(res.data));
@@ -69,33 +81,6 @@ export function login(data) {
       })
   };
 }
-
-/**
- * Login action - posts login data to the API with a promise
- * Promise returns with a token (if login is successful).
- * Token is then saved to localStorage for persistence,
- * then set in the header of future axios requests (setAuthorizationToken)
- * 'setCurrentUser' action is then dispatch to update global state
- * @param data
- * @returns {function(*)}
- */
-/*
-export function login(data) {
-  const newData = {
-    Username: data.email,
-    Password: data.password,
-  };
-  return dispatch => {
-    return axios.post(`${API_URL}system/token`, newData).then(res => {
-      console.log(res);
-      const token = res.data.Item.Token;
-      localStorage.setItem('jwtToken', token);
-      setAuthorizationToken(token);
-      dispatch(setCurrentUser(token));
-    });
-  }
-}
-*/
 
 /**
  * Logs a user out of the system by:

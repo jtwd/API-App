@@ -5,11 +5,14 @@ import { Link } from 'react-router';
 import dateformat from 'dateformat';
 import { Table } from 'reactable';
 import { Alert, Glyphicon, Button } from 'react-bootstrap';
+import _ from 'lodash';
 
 // Project imports
-import { DATA_LOAD_ERROR } from '../../../constants';
 import {
-  fetchPromotions,
+  DATA_LOAD_ERROR,
+} from '../../../constants';
+import { confirm } from '../../../utils/confirm';
+import {
   addFlashMessage,
   deleteFlashMessage,
 } from '../../../actions';
@@ -23,17 +26,21 @@ const content = {
 
 class PromotionsTable extends Component {
   static propTypes = {
-    promotions: PropTypes.array.isRequired,
+    promotions: PropTypes.object.isRequired,
     isLoading: PropTypes.bool.isRequired,
     isLoaded: PropTypes.bool.isRequired,
     error: PropTypes.object,
-    fetchPromotions: PropTypes.func.isRequired,
     addFlashMessage: PropTypes.func.isRequired,
     deleteFlashMessage: PropTypes.func.isRequired,
   };
 
   constructor(props) {
     super(props);
+
+    this.state = {
+      modalIsOpen: false,
+      promoToDelete: null,
+    };
 
     this.tableConfig = {
       itemsPerPage: 10,
@@ -50,12 +57,38 @@ class PromotionsTable extends Component {
         'Promotion',
       ]
     };
+
+    this._handleDeleteClick = this._handleDeleteClick.bind(this);
+    this._closeModal = this._closeModal.bind(this);
   }
-  componentWillMount() {
-    this.props.fetchPromotions();
+
+  _closeModal() {
+    this.setState({
+      modalIsOpen: false,
+      promoToDelete: null,
+    });
   }
+
+  _handleDeleteClick(promoId) {
+    const options = {
+      title: 'Delete promotion'
+    };
+    confirm(`Are you sure you want to delete: ${this._getPromoName(promoId)}?`, options).then(() => {
+      console.log('proceed!');
+    }, () => {
+      console.log('cancel!');
+    });
+  }
+
+  _getPromoName(id) {
+    if (!this.props.promotions[id]) return '';
+
+    return this.props.promotions[id].Name;
+  }
+
   render() {
     const { isLoading, isLoaded, promotions, error } = this.props;
+
 
     if (isLoading) return (<LoadingAni />);
 
@@ -69,17 +102,26 @@ class PromotionsTable extends Component {
     }
 
     if (isLoaded) {
-      if (promotions.length === 0) {
+      const newPromotions = _.values(promotions);
+
+      if (newPromotions.length === 0) {
         return (
           <Alert bsStyle="warning">{content.emptyWarning}</Alert>
         )
       }
 
-      this.tableData = promotions.map((promo) => {
+      this.tableData = newPromotions.map((promo) => {
         const btns = (
           <div className="tbl-btns">
-            <Link title="Edit" to={`/promotions/${promo.Id}`} className="btn btn-primary btn-sm"><Glyphicon glyph="edit" /></Link>
-            <Button title="Delete" className="btn btn-danger btn-sm"><Glyphicon glyph="remove-circle" /></Button>
+            <Link
+              title="Edit"
+              to={`/promotions/${promo.Id}`}
+              className="btn btn-primary btn-sm"><Glyphicon glyph="edit" /></Link>
+
+            <Button
+              title="Delete"
+              className="btn btn-danger btn-sm"
+              onClick={() => { this._handleDeleteClick(promo.Id) }}><Glyphicon glyph="remove-circle" /></Button>
           </div>
         );
 
@@ -103,6 +145,7 @@ class PromotionsTable extends Component {
           defaultSort={this.tableConfig.defaultSort}
           filterable={this.tableConfig.filterable}
         />
+
       </div>
     );
   };
@@ -120,7 +163,6 @@ function mapStateToProps(state) {
 export default connect(
   mapStateToProps, // State
   {
-    fetchPromotions,
     addFlashMessage,
     deleteFlashMessage,
   } // Actions

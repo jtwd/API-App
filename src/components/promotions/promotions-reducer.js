@@ -1,4 +1,5 @@
 // Dependencies
+import _ from 'lodash';
 
 // Project imports
 import {
@@ -32,10 +33,11 @@ export default (state = initialState, action = {}) => {
         isLoaded: false,
       };
     case REQ_PROMOS_SUCCESS:
+      const newPromoItems = _.mapKeys(action.payload.Items, 'Id');
       return {
         isLoading: false,
         isLoaded: true,
-        items: action.payload.Items,
+        items: newPromoItems,
         meta: action.payload.Meta,
       };
     case REQ_PROMOS_FAILURE:

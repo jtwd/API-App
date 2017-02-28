@@ -22,7 +22,7 @@ if (!rootEle) console.error('Root DOM element is missing. Looking for ID of "app
 // if(!API_URL) console.error('API URL is missing from the root DOM element. Looking for "data-api-url"');
 
 // Configure store
-const store = createStore(
+export const store = createStore(
   rootReducer,
   compose(
     applyMiddleware(thunk), // thunk middleware

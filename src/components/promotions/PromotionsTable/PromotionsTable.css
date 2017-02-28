@@ -4,3 +4,22 @@
 .tbl-btns .btn {
   margin: 0 2px;
 }
+
+.Overlay {
+  background: rgba(0,0,0,.7);
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.Dialogue {
+  max-width: 550px;
+  width: 90%;
+  left: 50%;
+  top: 50%;
+  position: absolute;
+  transform: translateX(-50%) translateY(-50%);
+  background: #fff;
+}

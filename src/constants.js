@@ -14,3 +14,16 @@ export const API_URL = apiUrl;
 // Flash message Error Types
 export const LOGIN_ERROR = 'LOGIN_ERROR';
 export const DATA_LOAD_ERROR = 'DATA_LOAD_ERROR';
+
+export const MODALS = {
+  NONE: 'NONE',
+  DELETE_PROMO: 'DELETE_PROMO',
+};
+
+export const KEYS = {
+  DOWN: 40,
+  ENTER: 13,
+  ESC: 27,
+  SPACE: 32,
+  UP: 38,
+};
