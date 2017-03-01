@@ -2,6 +2,9 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
 
+// Project imports
+import { FLASH_MESSAGE_TIMEOUT } from '../../../constants'
+
 
 /** Class representing a Flash Message component */
 class FlashMessage extends Component {
@@ -12,6 +15,7 @@ class FlashMessage extends Component {
   constructor(props) {
     super(props);
 
+    this.selfClosingTimeout = FLASH_MESSAGE_TIMEOUT;
     this.onClick = this.onClick.bind(this);
   }
 
@@ -28,15 +32,24 @@ class FlashMessage extends Component {
    * @returns {JSX} - FlashMessage component
    */
   render() {
-    const { type, text} = this.props.message;
+    const { id, type, text, selfClosing } = this.props.message;
+    const closeBtn = (
+      <button
+        className="close"
+        onClick={this.onClick}>
+        <span>&times;</span>
+      </button>
+    );
+
+    if (selfClosing) {
+      setTimeout(() => {
+        this.props.deleteFlashMessage(id);
+      }, this.selfClosingTimeout)
+    }
 
     return (
       <div className={classnames('alert', { 'alert-success': type === 'success', 'alert-danger': type === 'error' })}>
-        <button
-          className="close"
-          onClick={this.onClick}>
-          <span>&times;</span>
-        </button>
+        { selfClosing ? '' : closeBtn }
         {text}
       </div>
     );

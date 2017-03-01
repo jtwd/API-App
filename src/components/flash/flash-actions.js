@@ -11,6 +11,7 @@ import {
  * @returns {{type, message}} - Action object
  */
 export function addFlashMessage(message) {
+  console.log(message);
   return {
     type: ADD_FLASH_MESSAGE,
     message,

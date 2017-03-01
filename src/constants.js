@@ -11,6 +11,8 @@ if (process.env.NODE_ENV === 'production') {
 
 export const API_URL = apiUrl;
 
+export const FLASH_MESSAGE_TIMEOUT = 4000;
+
 // Flash message Error Types
 export const LOGIN_ERROR = 'LOGIN_ERROR';
 export const DATA_LOAD_ERROR = 'DATA_LOAD_ERROR';

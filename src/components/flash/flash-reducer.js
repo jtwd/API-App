@@ -19,12 +19,14 @@ export default (state = [], action = {}) => {
   switch(action.type) {
     case ADD_FLASH_MESSAGE:
       let id = action.message.id ? action.message.id : shortid.generate();
+      let selfClosing = action.message.selfClosing ? action.message.selfClosing : false;
       return [
         ...state,
         {
-          id: id,
+          id,
           type: action.message.type,
           text: action.message.text,
+          selfClosing,
         }
       ];
 

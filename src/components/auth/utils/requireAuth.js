@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 // Project imports
-import { addFlashMessage } from '../../flash/flash-actions';
+import { addFlashMessage, deleteFlashMessage } from '../../flash/flash-actions';
 import { LOGIN_ERROR } from '../../../constants';
 
 
@@ -22,10 +22,12 @@ export default function(ComposedComponent) {
      */
     componentWillMount() {
       if (!this.props.isAuthenticated) {
+        this.props.deleteFlashMessage(LOGIN_ERROR);
         this.props.addFlashMessage({
           id: LOGIN_ERROR,
           type: 'error',
           text: 'You need to Login to access this page',
+          selfClosing: true,
         });
         this.context.router.push('/login');
       }
@@ -76,6 +78,6 @@ export default function(ComposedComponent) {
   // maps state and actions to props
   return connect(
     mapStateToProps, // state
-    { addFlashMessage } // actions
+    { addFlashMessage, deleteFlashMessage } // actions
   )(Authenticate);
 }

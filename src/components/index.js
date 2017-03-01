@@ -9,11 +9,11 @@ export { default as TextFieldGroup } from './common/TextFieldGroup/TextFieldGrou
 export { default as LoadingButton } from './common/LoadingButton/LoadingButton';
 export { default as PageHead } from './common/PageHead/PageHead';
 export { default as LoadingAni } from './common/LoadingAni/LoadingAni';
+export { default as Confirmation } from './common/Confirmation/Confirmation';
 
 // Flash
 export { default as FlashMessagesList } from './flash/Messages/FlashMessagesList';
 
 // Promotions
 export { default as PromotionsTable } from './promotions/PromotionsTable/PromotionsTable';
-export { default as DeletePromotionsModal } from './promotions/DeletePromotionModal/DeletePromotionModal';
 
