@@ -29,12 +29,14 @@ export default (state = initialState, action = {}) => {
   switch(action.type) {
     case REQ_PROMOS:
       return {
+        ...state,
         isLoading: true,
         isLoaded: false,
       };
     case REQ_PROMOS_SUCCESS:
       const newPromoItems = _.mapKeys(action.payload.Items, 'Id');
       return {
+        ...state,
         isLoading: false,
         isLoaded: true,
         items: newPromoItems,
@@ -42,6 +44,7 @@ export default (state = initialState, action = {}) => {
       };
     case REQ_PROMOS_FAILURE:
       return {
+        ...state,
         isLoading: false,
         isLoaded: false,
         error: action.payload,

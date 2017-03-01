@@ -25,7 +25,7 @@ import { LOGIN_ERROR } from '../../../constants';
 function validateInput(data) {
   let errors = {};
 
-  if(data.email.trim() === '') {
+  if (data.email.trim() === '') {
     errors.email = "This field is required";
   } else {
     if (!validator.isEmail(data.email)) {
@@ -33,7 +33,7 @@ function validateInput(data) {
     }
   }
 
-  if(data.password.trim() === '') {
+  if (data.password.trim() === '') {
     errors.password = "This field is required";
   }
 
@@ -102,6 +102,7 @@ class LoginForm extends Component {
               text: this.props.submitError,
             });
           } else {
+            this.props.deleteFlashMessage(LOGIN_ERROR);
             this.context.router.push('/');
           }
         },

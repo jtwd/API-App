@@ -7,6 +7,7 @@ import {
   REQ_LOGIN_SUCCESS,
   REQ_LOGIN_FAILURE,
   LOGOUT,
+  SET_CURRENT_USER,
 } from '../../actions';
 
 
@@ -57,6 +58,13 @@ export default (state = initialState, action = {}) => {
         ...state,
         token: '',
         isAuthenticated: false,
+      };
+
+    case SET_CURRENT_USER:
+      return {
+        ...state,
+        token: action.token,
+        isAuthenticated: true,
       };
 
     default:

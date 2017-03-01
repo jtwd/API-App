@@ -8,6 +8,7 @@ import {
   REQ_LOGIN,
   REQ_LOGIN_SUCCESS,
   REQ_LOGIN_FAILURE,
+  SET_CURRENT_USER,
   LOGOUT,
 } from '../../actions';
 
@@ -26,7 +27,7 @@ function _reqLogin() {
 
 /**
  * Action creator to signal a successful login request
- * @param user {Object} - details of the logged in user and jwtToken
+ * @param data {Object} - details of the logged in user and jwtToken
  * @returns {{type, user: *}} - Action
  */
 function _reqLoginSuccess(data) {
@@ -94,5 +95,12 @@ export function logout() {
 
   return {
     type: LOGOUT,
+  }
+}
+
+export function setCurrentUser(token) {
+  return {
+    type: SET_CURRENT_USER,
+    token,
   }
 }

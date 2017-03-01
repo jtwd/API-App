@@ -6,6 +6,7 @@
 export const REQ_LOGIN = 'REQ_LOGIN';
 export const REQ_LOGIN_SUCCESS = 'REQ_LOGIN_SUCCESS';
 export const REQ_LOGIN_FAILURE = 'REQ_LOGIN_FAILURE';
+export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 export const LOGOUT = 'LOGOUT';
 
 /* Flash */
@@ -26,6 +27,7 @@ export const SET_FLOW_DETAILS = 'SET_FLOW_DETAILS';
 export {
   login,
   logout,
+  setCurrentUser,
 } from './components/auth/auth-actions';
 
 // Flash

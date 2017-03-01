@@ -24,7 +24,7 @@ class Confirmation extends React.Component {
 
     return (
       <div className="static-modal">
-        <Modal show={show} onHide={dismiss} backdrop={enableEscape ? true : 'static'} keyboard={enableEscape}>
+        <Modal show={show} bsSize="small" onHide={dismiss} backdrop={enableEscape ? true : 'static'} keyboard={enableEscape}>
           <Modal.Header>
             <Modal.Title>{title}</Modal.Title>
           </Modal.Header>

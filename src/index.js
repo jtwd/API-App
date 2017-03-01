@@ -9,6 +9,8 @@ import { createStore, applyMiddleware, compose } from 'redux';
 // Project imports
 import routes from './routes/routes';
 import rootReducer from './rootReducer';
+import setAuthorizationToken from './components/auth/utils/setAuthorizationToken';
+import { setCurrentUser } from './actions';
 import './index.css';
 
 
@@ -29,6 +31,11 @@ export const store = createStore(
     window.devToolsExtension ? window.devToolsExtension() : f => f // enable Redux Dev Tools
   )
 );
+
+if (localStorage.jwtToken) {
+  setAuthorizationToken(localStorage.jwtToken);
+  store.dispatch(setCurrentUser(localStorage.jwtToken));
+}
 
 // render app
 render(

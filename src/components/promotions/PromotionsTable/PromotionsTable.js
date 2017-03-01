@@ -11,7 +11,7 @@ import _ from 'lodash';
 import {
   DATA_LOAD_ERROR,
 } from '../../../constants';
-import { confirm } from '../../../utils/confirm';
+import { confirm } from '../../common/Confirmation/utils/confirm';
 import {
   addFlashMessage,
   deleteFlashMessage,
@@ -102,6 +102,8 @@ class PromotionsTable extends Component {
     }
 
     if (isLoaded) {
+      this.props.deleteFlashMessage(DATA_LOAD_ERROR);
+
       const newPromotions = _.values(promotions);
 
       if (newPromotions.length === 0) {
