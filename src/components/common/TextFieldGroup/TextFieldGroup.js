@@ -1,6 +1,5 @@
 // Dependencies
 import React from 'react';
-import classnames from 'classnames';
 import { FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 
 // Project imports
@@ -18,19 +17,26 @@ import './TextFieldGroup.css';
  * @returns {JSX} - TextFieldGroup component
  * @constructor
  */
-const TextFieldGroup = ({ field, value, label, error, type, onChange, isLoading}) => {
+const TextFieldGroup = ({
+  input,
+  label,
+  type="text",
+  errorMsg,
+  meta: {
+    touched,
+    error,
+    invalid,
+    warning
+  }
+}) => {
   return (
-    <FormGroup className={classnames("form-group", { 'has-error': error})}>
-      <ControlLabel htmlFor={field}>{label}</ControlLabel>
+    <FormGroup controlId={input.name} validationState={(touched && invalid) ? 'error' : null}>
+      <ControlLabel>{label}</ControlLabel>
       <FormControl
-        id={field}
+        {...input}
         type={type}
-        name={field}
-        value={value}
-        onChange={onChange}
-        disabled={isLoading}
       />
-      {error && <span className="help-block">{error}</span>}
+      {(errorMsg && touched && invalid) ? (<span className="help-block">{error}</span>) : ''}
     </FormGroup>
   );
 };

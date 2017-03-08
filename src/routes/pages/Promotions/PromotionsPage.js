@@ -12,9 +12,7 @@ class PromotionsPage extends Component {
   render() {
     return (
       <div className="Page">
-        <PageHead title="Promotion Setup">
-          <button className="btn btn-primary AddNewButton"><strong>+</strong> &nbsp;Create New Promotion</button>
-        </PageHead>
+        <PageHead title="Promotion Setup" />
         <PromotionsTable />
       </div>
     );

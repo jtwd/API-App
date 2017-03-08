@@ -6,7 +6,8 @@
     "flow-bin": "^0.39.0",
     "react-scripts": "0.8.5",
     "react-test-renderer": "^15.4.2",
-    "redux-mock-store": "^1.2.2"
+    "redux-mock-store": "^1.2.2",
+    "@kadira/storybook": "^2.21.0"
   },
   "dependencies": {
     "axios": "^0.15.3",
@@ -33,6 +34,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "flow": "flow"
+    "flow": "flow",
+    "storybook": "start-storybook -p 9009 -s public",
+    "build-storybook": "build-storybook -s public"
   }
 }

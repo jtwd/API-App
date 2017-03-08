@@ -11,7 +11,7 @@ import _ from 'lodash';
 import {
   DATA_LOAD_ERROR,
 } from '../../../constants';
-import { confirm } from '../../common/Confirmation/utils/confirm';
+import { confirm, prompt } from '../../common/Confirmation/utils/confirm';
 import {
   addFlashMessage,
   deleteFlashMessage,
@@ -80,6 +80,17 @@ class PromotionsTable extends Component {
     });
   }
 
+  _handleNewClick() {
+    const options = {
+      title: 'Create new promotions'
+    };
+    prompt('', options).then(({input}) => {
+      console.log('proceed pressed! ' + input);
+    }, () => {
+      console.log('cancel');
+    })
+  }
+
   _getPromoName(id) {
     if (!this.props.promotions[id]) return '';
 
@@ -137,17 +148,19 @@ class PromotionsTable extends Component {
     }
 
     return (
-      <div className="panel">
-        <Table
-          className="table"
-          data={this.tableData}
-          itemsPerPage={this.tableConfig.itemsPerPage}
-          pageButtonLimit={this.tableConfig.pageButtonLimit}
-          sortable={this.tableConfig.sortable}
-          defaultSort={this.tableConfig.defaultSort}
-          filterable={this.tableConfig.filterable}
-        />
-
+      <div>
+        <button onClick={this._handleNewClick} className="btn btn-primary AddNewButton"><strong>+</strong> &nbsp;Create New Promotion</button>
+        <div className="panel">
+          <Table
+            className="table"
+            data={this.tableData}
+            itemsPerPage={this.tableConfig.itemsPerPage}
+            pageButtonLimit={this.tableConfig.pageButtonLimit}
+            sortable={this.tableConfig.sortable}
+            defaultSort={this.tableConfig.defaultSort}
+            filterable={this.tableConfig.filterable}
+          />
+        </div>
       </div>
     );
   };

@@ -10,6 +10,8 @@ export { default as LoadingButton } from './common/LoadingButton/LoadingButton';
 export { default as PageHead } from './common/PageHead/PageHead';
 export { default as LoadingAni } from './common/LoadingAni/LoadingAni';
 export { default as Confirmation } from './common/Confirmation/Confirmation';
+export { default as Prompt } from './common/Confirmation/Prompt';
+export { default as Input } from './common/FormFields/Input';
 
 // Flash
 export { default as FlashMessagesList } from './flash/Messages/FlashMessagesList';
